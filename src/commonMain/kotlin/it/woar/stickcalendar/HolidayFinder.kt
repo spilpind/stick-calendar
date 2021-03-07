@@ -1,6 +1,8 @@
 package it.woar.stickcalendar
 
+import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.LocalDate
+import kotlinx.datetime.plus
 
 /**
  * We have for now limited the earliest year to be 1583 since the Gregorian calendar was introduced in late 1582.
@@ -52,5 +54,12 @@ object HolidayFinder {
             monthNumber = month,
             dayOfMonth = day
         )
+    }
+
+    /**
+     * Finds date of pentecost for the given [year]. Uses [findEaster], so same thoughts and limitations applies
+     */
+    fun findPentecost(year: Int): LocalDate {
+        return findEaster(year) + DatePeriod(days = 49)
     }
 }

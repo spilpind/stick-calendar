@@ -864,6 +864,30 @@ class HolidayFinderTest {
         }
     }
 
+    @Test
+    fun pentecostCheckWeekDay() {
+        (expectedFirstYear..10000).forEach { year ->
+            assertEquals(expected = DayOfWeek.SUNDAY, HolidayFinder.findPentecost(year).dayOfWeek)
+        }
+    }
+
+    @Test
+    fun pentecostCheckDateStatic() {
+        val expectedPentecostDates = listOf(
+            LocalDate(dayOfMonth = 29, month = Month.MAY, year = 1583),
+            LocalDate(dayOfMonth = 21, month = Month.MAY, year = 1600),
+            LocalDate(dayOfMonth = 3, month = Month.JUNE, year = 1900),
+            LocalDate(dayOfMonth = 31, month = Month.MAY, year = 2020),
+            LocalDate(dayOfMonth = 23, month = Month.MAY, year = 2021),
+            LocalDate(dayOfMonth = 5, month = Month.JUNE, year = 2022),
+            LocalDate(dayOfMonth = 4, month = Month.JUNE, year = 2400),
+        )
+
+        expectedPentecostDates.forEach { expectedDate ->
+            assertEquals(expected = expectedDate, HolidayFinder.findPentecost(expectedDate.year))
+        }
+    }
+
     /**
      * Logic from assa.org.au/edm which also generated some of the static map, but are here to help with the remaining
      * dates that we don't want to have statically
