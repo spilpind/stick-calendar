@@ -5,6 +5,8 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.plus
 
 /**
+ * Utility class that with various methods helps figuring out dates of certain holiday-days.
+ *
  * We have for now limited the earliest year to be 1583 since the Gregorian calendar was introduced in late 1582.
  * The issue of dealing with dates before that is mainly related to leap years (since the calculation was much more
  * simple up until 1582) and usage of Julian vs. Gregorian calendar. The implementations of [LocalDate] seems to ignore
