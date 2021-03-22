@@ -8,6 +8,9 @@ version = "1.0-SNAPSHOT"
 repositories {
     mavenCentral()
     maven(url = "https://kotlin.bintray.com/kotlinx/")
+    maven {
+        url = uri("https://maven.pkg.jetbrains.space/kotlin/p/kotlin/kotlin-js-wrappers")
+    }
 }
 
 kotlin {
@@ -21,10 +24,13 @@ kotlin {
     }
     js(LEGACY) {
         browser {
+            commonWebpackConfig {
+                cssSupport.enabled = true
+            }
+
             testTask {
                 useKarma {
                     useChromeHeadless()
-                    webpackConfig.cssSupport.enabled = true
                 }
             }
         }
@@ -58,7 +64,20 @@ kotlin {
                 implementation(kotlin("test-junit"))
             }
         }
-        val jsMain by getting
+        val jsMain by getting {
+            dependencies {
+                //React, React DOM + Wrappers
+                implementation("org.jetbrains:kotlin-react:17.0.1-pre.148-kotlin-1.4.21")
+                implementation("org.jetbrains:kotlin-react-dom:17.0.1-pre.148-kotlin-1.4.21")
+                implementation(npm("react", "17.0.1"))
+                implementation(npm("react-dom", "17.0.1"))
+                implementation(npm("react-datepicker", "3.6.0"))
+
+                //Kotlin Styled
+                implementation("org.jetbrains:kotlin-styled:5.2.1-pre.148-kotlin-1.4.21")
+                implementation(npm("styled-components", "~5.2.1"))
+            }
+        }
         val jsTest by getting {
             dependencies {
                 implementation(kotlin("test-js"))
