@@ -28,6 +28,7 @@ kotlin {
                 }
             }
         }
+        binaries.executable()
     }
     val hostOs = System.getProperty("os.name")
     val isMingwX64 = hostOs.startsWith("Windows")
