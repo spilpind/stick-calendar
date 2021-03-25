@@ -10,4 +10,5 @@ external val npmReactDatePicker: RClass<NpmReactDatePickerProps>
 external interface NpmReactDatePickerProps : RProps {
     var selected: Date
     var onChange: (Date) -> Unit
+    var inline: Boolean
 }
