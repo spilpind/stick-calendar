@@ -4,7 +4,6 @@ import kotlinx.html.js.onChangeFunction
 import org.w3c.dom.HTMLInputElement
 import react.*
 import react.dom.input
-import react.dom.p
 import kotlin.js.Date
 
 external interface AppState : RState {
@@ -45,15 +44,13 @@ class ReactApp : RComponent<RProps, AppState>() {
         }
 
         stickCalendarComponent("stick-calendar-greg-to-stick-result") {
-            p {
-                +"Stick Date: ${
-                    LocalDate(
-                        year = state.selectedDate.getFullYear(),
-                        monthNumber = state.selectedDate.getUTCMonth() + 1,
-                        dayOfMonth = state.selectedDate.getDate()
-                    ).toStickDate()
-                }"
-            }
+            val stickDate = LocalDate(
+                year = state.selectedDate.getFullYear(),
+                monthNumber = state.selectedDate.getUTCMonth() + 1,
+                dayOfMonth = state.selectedDate.getDate()
+            ).toStickDate()
+
+            +"Stick Date: ${stickDate.toHumanString()} (${stickDate.toShortString()})"
         }
     }
 }
