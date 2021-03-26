@@ -5,7 +5,7 @@ package it.woar.stickcalendar
  */
 data class StickDate(val day: Int, val year: Int) {
 
-    fun toShortString() =
+    fun toSimplifiedString() =
         "${
             if (year >= 0) {
                 "$year\\."
@@ -14,7 +14,7 @@ data class StickDate(val day: Int, val year: Int) {
             }
         }$day"
 
-    fun toHumanString() =
+    fun toExtendedString() =
         "$day. pindsedag år ${
             if (year >= 0) {
                 year

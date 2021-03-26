@@ -48,9 +48,14 @@ class ReactApp : RComponent<RProps, AppState>() {
             }
         }
 
-        stickCalendarComponent("stick-calendar-greg-to-stick-result") {
+        stickCalendarComponent("stick-calendar-greg-to-stick-result-extended") {
             val stickDate = state.selectedDate.toStickDate()
-            +"Stick Date: ${stickDate.toHumanString()} (${stickDate.toShortString()})"
+            +stickDate.toExtendedString()
+        }
+
+        stickCalendarComponent("stick-calendar-greg-to-stick-result-simplified") {
+            val stickDate = state.selectedDate.toStickDate()
+            +stickDate.toSimplifiedString()
         }
     }
 }
