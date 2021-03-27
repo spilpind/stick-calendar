@@ -1,8 +1,8 @@
-import react.dom.*
 import kotlinx.browser.document
+import react.dom.render
 
 fun main() {
     render(document.getElementById("stick-calendar-root")) {
-        child(ReactApp::class) { }
+        child(ReactGregToStickApp::class) { }
     }
 }

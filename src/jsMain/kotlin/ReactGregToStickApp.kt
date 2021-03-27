@@ -6,14 +6,14 @@ import kotlinx.datetime.todayAt
 import react.*
 import kotlin.js.Date
 
-external interface AppState : RState {
+external interface ReactGregToStickAppState : RState {
     var selectedDate: LocalDate
 }
 
 @JsExport
-class ReactApp : RComponent<RProps, AppState>() {
+class ReactGregToStickApp : RComponent<RProps, ReactGregToStickAppState>() {
 
-    override fun AppState.init() {
+    override fun ReactGregToStickAppState.init() {
         selectedDate = Clock.System.todayAt(TimeZone.currentSystemDefault())
     }
 
