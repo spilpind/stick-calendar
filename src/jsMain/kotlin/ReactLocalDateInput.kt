@@ -107,7 +107,7 @@ private fun String.toDate(): LocalDate {
     }
 
     if (dateParts.size < 3 || dateParts.any { it.isEmpty() }) {
-        throw IllegalArgumentException("Forventet format: DD-MM-YYYY")
+        throw IllegalArgumentException("Forventet format: DD-MM-ÅÅÅÅ")
     }
 
     val dayOfMonth = dateParts[0].toIntOrNull()
@@ -115,7 +115,7 @@ private fun String.toDate(): LocalDate {
     val year = dateParts[2].toIntOrNull()
 
     if (dayOfMonth == null || monthNumber == null || year == null) {
-        throw IllegalArgumentException("Forventet format: DD-MM-YYYY. Nogle af elementerne var ikke tal")
+        throw IllegalArgumentException("Forventet format: DD-MM-ÅÅÅÅ. Nogle af elementerne var ikke tal")
     } else if (dayOfMonth < 1 || dayOfMonth > 31) {
         throw IllegalArgumentException("Dagen skal være mellem 1-31")
     } else if (monthNumber < 1 || monthNumber > 12) {
@@ -132,7 +132,7 @@ private fun String.toDate(): LocalDate {
         )
     } catch (exception: IllegalArgumentException) {
         throw IllegalArgumentException(
-            "Datoen er ugyldig - muligvis fordi den ikke eksisterer. Forventet format: DD-MM-YYYY"
+            "Datoen er ugyldig - muligvis fordi den ikke eksisterer. Forventet format: DD-MM-ÅÅÅÅ"
         )
     }
 

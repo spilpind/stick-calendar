@@ -111,14 +111,14 @@ private fun String.toDate(): StickDate {
     }
 
     if (dateParts.size < 2 || dateParts.any { it.isEmpty() }) {
-        throw IllegalArgumentException("Forventet format: YYYY\\.DD eller YYYY./DD")
+        throw IllegalArgumentException("Forventet format: ÅÅÅÅ\\.DD eller ÅÅÅÅ./DD")
     }
 
     var year = dateParts[0].toIntOrNull()
     val day = dateParts[1].toIntOrNull()
 
     if (year == null || day == null) {
-        throw IllegalArgumentException("Forventet format: YYYY\\.DD eller YYYY./DD. Nogle af elementerne var ikke tal")
+        throw IllegalArgumentException("Forventet format: ÅÅÅÅ\\.DD eller ÅÅÅÅ./DD. Nogle af elementerne var ikke tal")
     } else if (year < 0 || day < 1) {
         throw IllegalArgumentException("Året skal være mindst 0 og dag mindst 1")
     }
@@ -140,7 +140,7 @@ private fun String.toDate(): StickDate {
     ).also { date ->
         if (!date.isValid) {
             throw IllegalArgumentException(
-                "Datoen er ugyldig - muligvis fordi den ikke eksisterer. Forventet format: YYYY\\.DD eller YYYY./DD"
+                "Datoen er ugyldig - muligvis fordi den ikke eksisterer. Forventet format: ÅÅÅÅ\\.DD eller ÅÅÅÅ./DD"
             )
         }
     }
