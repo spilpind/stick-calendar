@@ -1,7 +1,6 @@
 package it.woar.stickcalendar
 
-import kotlinx.datetime.LocalDate
-import kotlinx.datetime.daysUntil
+import kotlinx.datetime.*
 
 /**
  * Utility class that helps dealing with the Stick calendar and dates of it. Uses [HolidayFinder], so same limits as
@@ -24,5 +23,30 @@ object StickCalendar {
             day = pentecostDate.daysUntil(this) + 1,
             year = pentecostDate.year - ORIGIN_YEAR
         )
+    }
+
+    val StickDate.isValid: Boolean
+        get() = try {
+            toLocalDate()
+            true
+        } catch (exception: IllegalArgumentException) {
+            false
+        }
+
+    fun StickDate.toLocalDate(): LocalDate {
+        val yearLength = lengthOfYear(year)
+        if (day > yearLength) {
+            throw IllegalArgumentException("Could not convert $this to LocalDate as year $year only has $yearLength days")
+        }
+
+        val pentecost = HolidayFinder.findPentecost(ORIGIN_YEAR + year)
+        return pentecost + DatePeriod(days = day - 1)
+    }
+
+    fun lengthOfYear(year: Int): Int {
+        val thisYearPentecost = HolidayFinder.findPentecost(ORIGIN_YEAR + year)
+        val nextYearPentecost = HolidayFinder.findPentecost(ORIGIN_YEAR + year + 1)
+
+        return thisYearPentecost.daysUntil(nextYearPentecost)
     }
 }
