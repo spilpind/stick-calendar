@@ -1,3 +1,4 @@
+import it.woar.stickcalendar.StickCalendar.toStickDate
 import kotlinx.css.Color
 import kotlinx.css.Display
 import kotlinx.css.color
@@ -123,8 +124,8 @@ private fun String.toDate(): LocalDate {
         throw IllegalArgumentException("År mindre end 1583 er desværre ikke supporteret")
     }
 
-    try {
-        return LocalDate(
+    val localDate = try {
+        LocalDate(
             dayOfMonth = dayOfMonth,
             monthNumber = monthNumber,
             year = year
@@ -132,6 +133,17 @@ private fun String.toDate(): LocalDate {
     } catch (exception: IllegalArgumentException) {
         throw IllegalArgumentException(
             "Datoen er ugyldig - muligvis fordi den ikke eksisterer. Forventet format: DD-MM-YYYY"
+        )
+    }
+
+    try {
+        // Checks if it's possible at all
+        localDate.toStickDate()
+
+        return localDate
+    } catch (exception: IllegalArgumentException) {
+        throw IllegalArgumentException(
+            "Datoen er ugyldig - muligvis fordi vi ikke kan konvertere alt for gamle datoer"
         )
     }
 }
