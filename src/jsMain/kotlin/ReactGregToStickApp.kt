@@ -18,7 +18,7 @@ class ReactGregToStickApp : RComponent<RProps, ReactGregToStickAppState>() {
     }
 
     override fun RBuilder.render() {
-        stickCalendarComponent("stick-calendar-greg-to-stick-input") {
+        stickCalendarComponentById("stick-calendar-greg-to-stick-input") {
             localDateInput {
                 selectedDate = state.selectedDate
                 onDateSelected = { date ->
@@ -29,7 +29,7 @@ class ReactGregToStickApp : RComponent<RProps, ReactGregToStickAppState>() {
             }
         }
 
-        stickCalendarComponent("stick-calendar-greg-to-stick-calendar") {
+        stickCalendarComponentById("stick-calendar-greg-to-stick-calendar") {
             datePicker {
                 selectedDate = Date(
                     state.selectedDate.year,
@@ -48,12 +48,12 @@ class ReactGregToStickApp : RComponent<RProps, ReactGregToStickAppState>() {
             }
         }
 
-        stickCalendarComponent("stick-calendar-greg-to-stick-result-extended") {
+        stickCalendarComponentsByClassName("stick-calendar-greg-to-stick-result-extended") {
             val stickDate = state.selectedDate.toStickDate()
             +stickDate.toExtendedString()
         }
 
-        stickCalendarComponent("stick-calendar-greg-to-stick-result-simplified") {
+        stickCalendarComponentsByClassName("stick-calendar-greg-to-stick-result-simplified") {
             val stickDate = state.selectedDate.toStickDate()
             +stickDate.toSimplifiedString()
         }
