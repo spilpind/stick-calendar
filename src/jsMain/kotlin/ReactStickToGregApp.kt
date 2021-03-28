@@ -1,3 +1,4 @@
+import RenderUtil.renderFunFacts
 import it.woar.stickcalendar.StickCalendar.toLocalDate
 import it.woar.stickcalendar.StickCalendar.toStickDate
 import it.woar.stickcalendar.StickDate
@@ -16,7 +17,9 @@ class ReactStickToGregApp : RComponent<RProps, ReactStickToGregAppState>() {
     }
 
     override fun RBuilder.render() {
-        stickCalendarComponentById("stick-calendar-stick-to-greg-input") {
+        val elementPrefix = "stick-calendar-stick-to-greg"
+
+        stickCalendarComponentById("$elementPrefix-input") {
             stickDateInput {
                 selectedDate = state.selectedDate
                 onDateSelected = { date ->
@@ -27,7 +30,7 @@ class ReactStickToGregApp : RComponent<RProps, ReactStickToGregAppState>() {
             }
         }
 
-        stickCalendarComponentsByClassName("stick-calendar-stick-to-greg-result-extended") {
+        stickCalendarComponentsByClassName("$elementPrefix-result-extended") {
             val localDate = state.selectedDate.toLocalDate()
             +"${localDate.dayOfMonth}. ${
                 when (localDate.month) {
@@ -46,5 +49,7 @@ class ReactStickToGregApp : RComponent<RProps, ReactStickToGregAppState>() {
                 }
             } ${localDate.year}"
         }
+
+        renderFunFacts(elementPrefix, state.selectedDate)
     }
 }

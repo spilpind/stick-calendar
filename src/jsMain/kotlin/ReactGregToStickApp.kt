@@ -1,3 +1,4 @@
+import RenderUtil.renderFunFacts
 import it.woar.stickcalendar.StickCalendar.toStickDate
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
@@ -18,7 +19,9 @@ class ReactGregToStickApp : RComponent<RProps, ReactGregToStickAppState>() {
     }
 
     override fun RBuilder.render() {
-        stickCalendarComponentById("stick-calendar-greg-to-stick-input") {
+        val elementPrefix = "stick-calendar-greg-to-stick"
+
+        stickCalendarComponentById("$elementPrefix-input") {
             localDateInput {
                 selectedDate = state.selectedDate
                 onDateSelected = { date ->
@@ -29,7 +32,7 @@ class ReactGregToStickApp : RComponent<RProps, ReactGregToStickAppState>() {
             }
         }
 
-        stickCalendarComponentById("stick-calendar-greg-to-stick-calendar") {
+        stickCalendarComponentById("$elementPrefix-calendar") {
             datePicker {
                 selectedDate = Date(
                     state.selectedDate.year,
@@ -48,14 +51,16 @@ class ReactGregToStickApp : RComponent<RProps, ReactGregToStickAppState>() {
             }
         }
 
-        stickCalendarComponentsByClassName("stick-calendar-greg-to-stick-result-extended") {
+        stickCalendarComponentsByClassName("$elementPrefix-result-extended") {
             val stickDate = state.selectedDate.toStickDate()
             +stickDate.toExtendedString()
         }
 
-        stickCalendarComponentsByClassName("stick-calendar-greg-to-stick-result-simplified") {
+        stickCalendarComponentsByClassName("$elementPrefix-result-simplified") {
             val stickDate = state.selectedDate.toStickDate()
             +stickDate.toSimplifiedString()
         }
+
+        renderFunFacts(elementPrefix, state.selectedDate.toStickDate())
     }
 }
