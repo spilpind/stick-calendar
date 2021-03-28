@@ -14,8 +14,10 @@ data class StickDate(val day: Int, val year: Int) {
             }
         }$day"
 
-    fun toExtendedString() =
-        "$day. pindsedag år ${
+    fun toExtendedDayString() = "$day. pindsedag"
+
+    fun toExtendedFullString() =
+        "${toExtendedDayString()} år ${
             if (year >= 0) {
                 year
             } else {

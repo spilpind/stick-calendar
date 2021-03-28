@@ -9,33 +9,43 @@ import react.RBuilder
 object RenderUtil {
 
     fun RBuilder.renderGregDateOutput(elementPrefix: String, date: LocalDate) {
+        val dayMonth = "${date.dayOfMonth}. ${
+            when (date.month) {
+                Month.JANUARY -> "januar"
+                Month.FEBRUARY -> "februar"
+                Month.MARCH -> "marts"
+                Month.APRIL -> "april"
+                Month.MAY -> "maj"
+                Month.JUNE -> "juni"
+                Month.JULY -> "juli"
+                Month.AUGUST -> "august"
+                Month.SEPTEMBER -> "september"
+                Month.OCTOBER -> "oktober"
+                Month.NOVEMBER -> "november"
+                Month.DECEMBER -> "december"
+            }
+        }"
+
         stickCalendarComponentsByClassName("$elementPrefix-output-greg-extended") {
-            +"${date.dayOfMonth}. ${
-                when (date.month) {
-                    Month.JANUARY -> "januar"
-                    Month.FEBRUARY -> "februar"
-                    Month.MARCH -> "marts"
-                    Month.APRIL -> "april"
-                    Month.MAY -> "maj"
-                    Month.JUNE -> "juni"
-                    Month.JULY -> "juli"
-                    Month.AUGUST -> "august"
-                    Month.SEPTEMBER -> "september"
-                    Month.OCTOBER -> "oktober"
-                    Month.NOVEMBER -> "november"
-                    Month.DECEMBER -> "december"
-                }
-            } ${date.year}"
+            +"$dayMonth ${date.year}"
+        }
+
+        stickCalendarComponentsByClassName("$elementPrefix-output-greg-day-month") {
+            +dayMonth
         }
     }
 
     fun RBuilder.renderStickDateOutput(elementPrefix: String, date: StickDate) {
         stickCalendarComponentsByClassName("$elementPrefix-output-stick-extended") {
-            +date.toExtendedString()
+            +date.toExtendedFullString()
         }
 
         stickCalendarComponentsByClassName("$elementPrefix-output-stick-simplified") {
             +date.toSimplifiedString()
+        }
+
+        stickCalendarComponentsByClassName("$elementPrefix-output-stick-day") {
+            +date.toExtendedDayString()
         }
     }
 
