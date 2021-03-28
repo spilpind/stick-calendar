@@ -1,4 +1,6 @@
 import RenderUtil.renderFunFacts
+import RenderUtil.renderGregDateOutput
+import RenderUtil.renderStickDateOutput
 import it.woar.stickcalendar.StickCalendar.toStickDate
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDate
@@ -51,16 +53,12 @@ class ReactGregToStickApp : RComponent<RProps, ReactGregToStickAppState>() {
             }
         }
 
-        stickCalendarComponentsByClassName("$elementPrefix-result-extended") {
-            val stickDate = state.selectedDate.toStickDate()
-            +stickDate.toExtendedString()
-        }
+        val localDate = state.selectedDate.toStickDate()
 
-        stickCalendarComponentsByClassName("$elementPrefix-result-simplified") {
-            val stickDate = state.selectedDate.toStickDate()
-            +stickDate.toSimplifiedString()
-        }
+        renderStickDateOutput(elementPrefix, localDate)
 
-        renderFunFacts(elementPrefix, state.selectedDate.toStickDate())
+        renderGregDateOutput(elementPrefix, state.selectedDate)
+
+        renderFunFacts(elementPrefix, localDate)
     }
 }

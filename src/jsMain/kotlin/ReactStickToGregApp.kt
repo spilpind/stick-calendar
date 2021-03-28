@@ -1,4 +1,6 @@
 import RenderUtil.renderFunFacts
+import RenderUtil.renderGregDateOutput
+import RenderUtil.renderStickDateOutput
 import it.woar.stickcalendar.StickCalendar.toLocalDate
 import it.woar.stickcalendar.StickCalendar.toStickDate
 import it.woar.stickcalendar.StickDate
@@ -30,25 +32,9 @@ class ReactStickToGregApp : RComponent<RProps, ReactStickToGregAppState>() {
             }
         }
 
-        stickCalendarComponentsByClassName("$elementPrefix-result-extended") {
-            val localDate = state.selectedDate.toLocalDate()
-            +"${localDate.dayOfMonth}. ${
-                when (localDate.month) {
-                    Month.JANUARY -> "januar"
-                    Month.FEBRUARY -> "februar"
-                    Month.MARCH -> "marts"
-                    Month.APRIL -> "april"
-                    Month.MAY -> "maj"
-                    Month.JUNE -> "juni"
-                    Month.JULY -> "juli"
-                    Month.AUGUST -> "august"
-                    Month.SEPTEMBER -> "september"
-                    Month.OCTOBER -> "oktober"
-                    Month.NOVEMBER -> "november"
-                    Month.DECEMBER -> "december"
-                }
-            } ${localDate.year}"
-        }
+        renderGregDateOutput(elementPrefix, state.selectedDate.toLocalDate())
+
+        renderStickDateOutput(elementPrefix, state.selectedDate)
 
         renderFunFacts(elementPrefix, state.selectedDate)
     }
