@@ -1,0 +1,17 @@
+{
+  "name": "Pindskalender replacer",
+  "description": "Extension som konverterer alle gregorianske datoer til datoer i pindsekalenderen",
+  "version": "0.1.0",
+  "manifest_version": 3,
+  "content_scripts": [
+    {
+      "matches": [
+        "*://*/*"
+      ],
+      "run_at": "document_start",
+      "js": [
+        "stick-calendar.js"
+      ]
+    }
+  ]
+}
