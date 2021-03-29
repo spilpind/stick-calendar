@@ -1,8 +1,9 @@
 {
-  "name": "Pindskalender replacer",
-  "description": "Extension som konverterer alle gregorianske datoer til datoer i pindsekalenderen",
+  "name": "__MSG_application_name__",
+  "description": "__MSG_application_description__",
   "version": "0.1.0",
   "manifest_version": 3,
+  "default_locale": "en",
   "content_scripts": [
     {
       "matches": [

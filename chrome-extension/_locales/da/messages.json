@@ -1,0 +1,9 @@
+{
+  "application_name": {
+    "message": "Pindsekalenderen"
+  },
+  "application_description": {
+    "message": "Denne udvidelse erstatter gregorianske datoer på alle hjemmesider til deres repræsentation i pindsekalenderen. Supporterede datoer inkluderer fx 29. marts 21 og 21/3-2021.",
+    "description": "The description of the application, displayed in the web store."
+  }
+}
