@@ -22,9 +22,8 @@ fun main() {
                 return@forEach
             }
 
-            val element = mutationRecord.target as? HTMLElement ?: return@forEach
-
-            if (element.style.display == "none") {
+            val element = mutationRecord.target as? HTMLElement
+            if (element?.style?.display == "none") {
                 return@forEach
             }
 
