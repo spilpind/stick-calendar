@@ -1,4 +1,6 @@
+import it.woar.stickcalendar.StickCalendar.toStickDate
 import kotlinx.browser.document
+import kotlinx.datetime.*
 import org.w3c.dom.*
 
 fun main() {
@@ -65,9 +67,58 @@ fun replaceDates(node: Node) {
         return
     }
 
-    val upperCased = node.nodeValue?.toUpperCase()
-    if (node.nodeValue != upperCased) {
-        node.nodeValue = upperCased
+    val regex = Regex(
+        "([0-9]{1,2})\\. (jan|januar|feb|februar|mar|marts|apr|april|maj|jun|juni|jul|juli|aug|august|sep|sept|september|okt|oktober|nov|november|dec|december|) ([0-9]{4}|[0-9]{2})?",
+        RegexOption.IGNORE_CASE
+    )
+
+    val text = node.nodeValue ?: return
+    val newText = regex.replace(text) { matchResult ->
+        val dayOfMonth = matchResult.groupValues.getOrNull(1)?.toIntOrNull() ?: return@replace matchResult.value
+
+        val month = matchResult.groupValues.getOrNull(2).let { month ->
+            when (month) {
+                "jan", "januar" -> Month.JANUARY
+                "feb", "februar" -> Month.FEBRUARY
+                "mar", "marts" -> Month.MARCH
+                "apr", "april" -> Month.APRIL
+                "maj" -> Month.MAY
+                "jun", "juni" -> Month.JUNE
+                "jul", "juli" -> Month.JULY
+                "aug", "august" -> Month.AUGUST
+                "sep", "sept", "september" -> Month.SEPTEMBER
+                "okt", "oktober" -> Month.OCTOBER
+                "nov", "november" -> Month.NOVEMBER
+                "dec", "december" -> Month.DECEMBER
+                else -> {
+                    return@replace matchResult.value
+                }
+            }
+        }
+
+        val year = matchResult.groupValues.getOrNull(3)?.toIntOrNull().let { year ->
+            when {
+                year == null -> Clock.System.todayAt(TimeZone.currentSystemDefault()).year
+                year < 100 -> year + 2000
+                else -> year
+            }
+        }
+
+        try {
+            val localDate = LocalDate(
+                year = year,
+                month = month,
+                dayOfMonth = dayOfMonth
+            )
+
+            localDate.toStickDate().toExtendedFullString()
+        } catch (exception: IllegalArgumentException) {
+            matchResult.value
+        }
+    }
+
+    if (text != newText) {
+        node.nodeValue = newText
     }
 }
 
