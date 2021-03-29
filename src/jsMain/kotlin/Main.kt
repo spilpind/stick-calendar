@@ -77,7 +77,7 @@ fun replaceDates(node: Node) {
 
 private fun String.replaceExtendedDates(): String {
     val regex = Regex(
-        "([0-9]+)\\. (januar|jan|februar|feb|marts|mar|april|apr|maj|juni|jun|juli|jul|august|aug|september|sept|sep|oktober|okt|november|nov|december|dec)(?: ([0-9]+))?",
+        "([0-9]+)\\. (januar|jan\\.?|februar|feb\\.?|marts|mar\\.?|april|apr\\.?|maj|juni|jun\\.?|juli|jul\\.?|august|aug\\.?|september|sept\\.?|sep\\.?|oktober|okt\\.?|november|nov\\.?|december|dec\\.?)(?: ([0-9]+))?",
         RegexOption.IGNORE_CASE
     )
 
@@ -85,7 +85,7 @@ private fun String.replaceExtendedDates(): String {
         val dayOfMonth = matchResult.groupValues.getOrNull(1)?.toIntOrNull() ?: return@replace matchResult.value
 
         val month = matchResult.groupValues.getOrNull(2).let { month ->
-            when (month) {
+            when (month?.removeSuffix(".")) {
                 "jan", "januar" -> Month.JANUARY
                 "feb", "februar" -> Month.FEBRUARY
                 "mar", "marts" -> Month.MARCH
