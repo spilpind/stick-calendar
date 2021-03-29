@@ -77,7 +77,7 @@ fun replaceDates(node: Node) {
 
 private fun String.replaceExtendedDates(): String {
     val regex = Regex(
-        "([0-9]+)\\. (jan|januar|feb|februar|mar|marts|apr|april|maj|jun|juni|jul|juli|aug|august|sep|sept|september|okt|oktober|nov|november|dec|december|) ([0-9]+)?",
+        "([0-9]+)\\. (januar|jan|februar|feb|marts|mar|april|apr|maj|juni|jun|juli|jul|august|aug|september|sept|sep|oktober|okt|november|nov|december|dec)(?: ([0-9]+))?",
         RegexOption.IGNORE_CASE
     )
 
