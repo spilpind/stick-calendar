@@ -7,7 +7,11 @@
   "content_scripts": [
     {
       "matches": [
-        "*://*/*"
+        "<all_urls>"
+      ],
+      "exclude_matches": [
+        "http://*.spilpind.dk/*",
+        "https://*.spilpind.dk/*"
       ],
       "run_at": "document_idle",
       "js": [
