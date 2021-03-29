@@ -68,7 +68,7 @@ fun replaceDates(node: Node) {
 
     val text = node.nodeValue ?: return
 
-    val newText = text.replaceExtendedDates()
+    val newText = text.replaceExtendedDates().replaceSimpleDates()
 
     if (text != newText) {
         node.nodeValue = newText
@@ -120,6 +120,53 @@ private fun String.replaceExtendedDates(): String {
             )
 
             localDate.toStickDate().toExtendedFullString()
+        } catch (exception: IllegalArgumentException) {
+            matchResult.value
+        }
+    }
+}
+
+private fun String.replaceSimpleDates(): String {
+    val regex = Regex(
+        "(?:(d\\.|den) )?([0-9]{4}|[0-9]+)[.\\-/]([0-9]+)(?:[.\\-/ ]([0-9]+))?",
+        RegexOption.IGNORE_CASE
+    )
+
+    return regex.replace(this) { matchResult ->
+        val prefix = matchResult.groupValues.getOrNull(1)
+
+        val datesParts = matchResult.groupValues.subList(2, matchResult.groupValues.size).map { datePart ->
+            datePart.toIntOrNull() ?: return@replace matchResult.value
+        }
+
+        val monthNumber = datesParts[1]
+        val (dayOfMonth, year) = when {
+            datesParts.size < 2 -> Pair(datesParts[1], Clock.System.todayAt(TimeZone.currentSystemDefault()).year)
+            datesParts.size > 3 -> return@replace matchResult.value
+            datesParts[0] > 31 -> Pair(datesParts[2], datesParts[0])
+            else -> Pair(datesParts[0], datesParts[2])
+        }.let { (dayOfMonth, year) ->
+            if (year < 100) {
+                Pair(dayOfMonth, year + 2000)
+            } else {
+                Pair(dayOfMonth, year)
+            }
+        }
+
+        try {
+            val localDate = LocalDate(
+                year = year,
+                monthNumber = monthNumber,
+                dayOfMonth = dayOfMonth
+            )
+
+            "${
+                if (prefix != null) {
+                    "$prefix "
+                } else {
+                    ""
+                }
+            }${localDate.toStickDate().toSimplifiedString()}"
         } catch (exception: IllegalArgumentException) {
             matchResult.value
         }
