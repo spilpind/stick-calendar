@@ -4,7 +4,7 @@
     "description": "The title of the application, displayed in the web store."
   },
   "application_description": {
-    "message": "This extension replaces gregorian calendar dates in all websites to dates of the stick calendar. This only makes sense for Danes since only Danish dates are supported. Converts dates like 29. marts 21 and 29/3-2021 to their counterpart in the stick calendar.",
+    "message": "Replaces gregorian calendar dates (29/3-2021) in all websites to dates of the stick calendar. Mostly just makes sense in Danish.",
     "description": "The description of the application, displayed in the web store."
   }
 }
