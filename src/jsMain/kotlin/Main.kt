@@ -106,20 +106,28 @@ private fun String.replaceExtendedDates(): String {
 
         val year = matchResult.groupValues.getOrNull(3)?.toIntOrNull().let { year ->
             when {
-                year == null -> Clock.System.todayAt(TimeZone.currentSystemDefault()).year
+                year == null -> null
                 year < 100 -> year + 2000
                 else -> year
             }
         }
 
         try {
-            val localDate = LocalDate(
-                year = year,
+            val today = Clock.System.todayAt(TimeZone.currentSystemDefault())
+
+            val stickDate = LocalDate(
+                year = year ?: today.year,
                 month = month,
                 dayOfMonth = dayOfMonth
-            )
+            ).toStickDate()
 
-            localDate.toStickDate().toExtendedFullString()
+            if (year == null && stickDate.year == today.toStickDate().year) {
+                // We just assume a date without a year is for the current year and if that's the same for the stick
+                // date there's no reason to include the stick date year
+                stickDate.toExtendedDayString()
+            } else {
+                stickDate.toExtendedFullString()
+            }
         } catch (exception: IllegalArgumentException) {
             matchResult.value
         }
