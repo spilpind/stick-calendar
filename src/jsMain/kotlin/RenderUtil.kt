@@ -55,12 +55,28 @@ object RenderUtil {
         val display = if (occurrences == null) {
             Display.none
         } else {
-            stickCalendarComponentsByClassName("$elementPrefix-fun-fact-count-match-since") {
-                +"${occurrences.countSince}"
+            stickCalendarComponentsByClassName("$elementPrefix-fun-fact-count-match-since-years") {
+                +"${occurrences.countSince} år"
+            }
+
+            stickCalendarComponentsByClassName("$elementPrefix-fun-fact-count-match-since-times") {
+                +"${occurrences.countSince} ${
+                    if (occurrences.countSince == 1) {
+                        "gang"
+                    } else {
+                        "gange"
+                    }
+                }"
             }
 
             stickCalendarComponentsByClassName("$elementPrefix-fun-fact-count-greg-match-since") {
-                +"${occurrences.countGregorianMatchSince}"
+                +"${occurrences.countGregorianMatchSince} ${
+                    if (occurrences.countGregorianMatchSince == 1) {
+                        "gang"
+                    } else {
+                        "gange"
+                    }
+                }"
             }
 
             Display.block

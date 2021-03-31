@@ -18,7 +18,14 @@ fun main() {
 
         stickCalendarComponentsByClassName("stick-calendar-days-left-of-year") {
             val today = Clock.System.todayAt(TimeZone.currentSystemDefault()).toStickDate()
-            +"${lengthOfYear(today.year) - today.day}"
+            val daysLeft = lengthOfYear(today.year) - today.day
+            +"$daysLeft ${
+                if (daysLeft == 1) {
+                    "dag"
+                } else {
+                    "dage"
+                }
+            }"
         }
     }
 }
