@@ -1,8 +1,9 @@
 import it.woar.stickcalendar.FunFacts
+import it.woar.stickcalendar.StickCalendar.toLocalDate
+import it.woar.stickcalendar.StickCalendar.toStickDate
 import it.woar.stickcalendar.StickDate
 import kotlinx.css.Display
-import kotlinx.datetime.LocalDate
-import kotlinx.datetime.Month
+import kotlinx.datetime.*
 import org.w3c.dom.HTMLElement
 import react.RBuilder
 
@@ -50,9 +51,46 @@ object RenderUtil {
     }
 
     fun RBuilder.renderFunFacts(elementPrefix: String, date: StickDate) {
-        val occurrences = FunFacts.occurrencesSince(date)
+        val todayLocalDate = Clock.System.todayAt(TimeZone.currentSystemDefault())
+        val todayStickDate = todayLocalDate.toStickDate()
 
-        val display = if (occurrences == null) {
+        stickCalendarComponentsByClassName("$elementPrefix-fun-fact-count-until-next") {
+            var nextTime = StickDate(
+                day = date.day,
+                year = todayStickDate.year
+            )
+
+            if (nextTime.toLocalDate() <= todayLocalDate) {
+                nextTime = StickDate(
+                    day = nextTime.day,
+                    year = nextTime.year + 1
+                )
+            }
+
+            val days = todayStickDate.toLocalDate().daysUntil(nextTime.toLocalDate())
+            +"$days ${
+                if (days == 1) {
+                    "dag"
+                } else {
+                    "dage"
+                }
+            }"
+        }
+
+        stickCalendarComponentById("$elementPrefix-fun-fact-day-is-today") {
+            val element = attrs.root as? HTMLElement ?: return@stickCalendarComponentById
+
+            val display = if (date.day == todayStickDate.day) {
+                Display.block
+            } else {
+                Display.none
+            }
+
+            element.style.display = display.name
+        }
+
+        val occurrences = FunFacts.occurrencesSince(date)
+        val displayCountContainer = if (occurrences == null) {
             Display.none
         } else {
             stickCalendarComponentsByClassName("$elementPrefix-fun-fact-count-match-since-years") {
@@ -83,7 +121,7 @@ object RenderUtil {
         }
 
         stickCalendarComponentById("$elementPrefix-fun-fact-count-container") {
-            (attrs.root as? HTMLElement)?.style?.display = display.name
+            (attrs.root as? HTMLElement)?.style?.display = displayCountContainer.name
         }
     }
 }
