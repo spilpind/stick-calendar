@@ -55,19 +55,19 @@ object RenderUtil {
         val todayLocalDate = Clock.System.todayAt(TimeZone.currentSystemDefault())
         val todayStickDate = todayLocalDate.toStickDate()
 
-        stickCalendarComponentsByClassName("$elementPrefix-fun-fact-count-until-next") {
-            var nextTime = StickDate(
-                day = date.day,
-                year = todayStickDate.year
+        var nextTime = StickDate(
+            day = date.day,
+            year = todayStickDate.year
+        )
+
+        while (!nextTime.isValid || nextTime.toLocalDate() <= todayLocalDate) {
+            nextTime = StickDate(
+                day = nextTime.day,
+                year = nextTime.year + 1
             )
+        }
 
-            while (!nextTime.isValid || nextTime.toLocalDate() <= todayLocalDate) {
-                nextTime = StickDate(
-                    day = nextTime.day,
-                    year = nextTime.year + 1
-                )
-            }
-
+        stickCalendarComponentsByClassName("$elementPrefix-fun-fact-until-next-count") {
             val days = todayStickDate.toLocalDate().daysUntil(nextTime.toLocalDate())
             +"$days ${
                 if (days == 1) {
@@ -76,6 +76,10 @@ object RenderUtil {
                     "dage"
                 }
             }"
+        }
+
+        stickCalendarComponentsByClassName("$elementPrefix-fun-fact-until-next-date") {
+            +nextTime.toSimplifiedString()
         }
 
         stickCalendarComponentById("$elementPrefix-fun-fact-day-is-today") {
