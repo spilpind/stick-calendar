@@ -1,4 +1,5 @@
 import it.woar.stickcalendar.FunFacts
+import it.woar.stickcalendar.StickCalendar.isValid
 import it.woar.stickcalendar.StickCalendar.toLocalDate
 import it.woar.stickcalendar.StickCalendar.toStickDate
 import it.woar.stickcalendar.StickDate
@@ -60,7 +61,7 @@ object RenderUtil {
                 year = todayStickDate.year
             )
 
-            if (nextTime.toLocalDate() <= todayLocalDate) {
+            while (!nextTime.isValid || nextTime.toLocalDate() <= todayLocalDate) {
                 nextTime = StickDate(
                     day = nextTime.day,
                     year = nextTime.year + 1
