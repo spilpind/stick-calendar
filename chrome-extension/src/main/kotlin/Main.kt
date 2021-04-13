@@ -4,11 +4,6 @@ import kotlinx.datetime.*
 import org.w3c.dom.*
 
 fun main() {
-    /* render(document.getElementById("stick-calendar-root")) {
-         child(ReactGregToStickApp::class) { }
-         child(ReactStickToGregApp::class) { }
-     }*/
-
     val observer = MutationObserver { mutations, _ ->
         mutations.forEach { mutationRecord ->
             if (mutationRecord.type == "childlist") {
