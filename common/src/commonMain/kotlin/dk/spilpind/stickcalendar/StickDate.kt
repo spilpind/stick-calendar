@@ -1,4 +1,4 @@
-package it.woar.stickcalendar
+package dk.spilpind.stickcalendar
 
 /**
  * Representation of a date in the Stick calendar

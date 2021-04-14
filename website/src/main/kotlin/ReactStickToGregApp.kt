@@ -1,9 +1,9 @@
 import RenderUtil.renderFunFacts
 import RenderUtil.renderGregDateOutput
 import RenderUtil.renderStickDateOutput
-import it.woar.stickcalendar.StickCalendar.toLocalDate
-import it.woar.stickcalendar.StickCalendar.toStickDate
-import it.woar.stickcalendar.StickDate
+import dk.spilpind.stickcalendar.StickCalendar.toLocalDate
+import dk.spilpind.stickcalendar.StickCalendar.toStickDate
+import dk.spilpind.stickcalendar.StickDate
 import kotlinx.datetime.*
 import react.*
 

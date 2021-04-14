@@ -1,7 +1,5 @@
-package it.woar.stickcalendar
+package dk.spilpind.stickcalendar
 
-import it.woar.stickcalendar.StickCalendar.isValid
-import it.woar.stickcalendar.StickCalendar.toLocalDate
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayAt

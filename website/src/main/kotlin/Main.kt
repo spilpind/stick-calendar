@@ -1,5 +1,5 @@
-import it.woar.stickcalendar.StickCalendar.lengthOfYear
-import it.woar.stickcalendar.StickCalendar.toStickDate
+import dk.spilpind.stickcalendar.StickCalendar.lengthOfYear
+import dk.spilpind.stickcalendar.StickCalendar.toStickDate
 import kotlinx.browser.document
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone

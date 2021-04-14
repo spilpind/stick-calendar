@@ -1,4 +1,4 @@
-package it.woar.stickcalendar
+package dk.spilpind.stickcalendar
 
 import kotlinx.datetime.DatePeriod
 import kotlinx.datetime.LocalDate

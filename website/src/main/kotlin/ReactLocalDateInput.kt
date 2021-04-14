@@ -1,4 +1,4 @@
-import it.woar.stickcalendar.StickCalendar.toStickDate
+import dk.spilpind.stickcalendar.StickCalendar.toStickDate
 import kotlinx.css.Color
 import kotlinx.css.Display
 import kotlinx.css.color

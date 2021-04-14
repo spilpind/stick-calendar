@@ -1,4 +1,4 @@
-import it.woar.stickcalendar.StickCalendar.toStickDate
+import dk.spilpind.stickcalendar.StickCalendar.toStickDate
 import kotlinx.browser.document
 import kotlinx.datetime.*
 import org.w3c.dom.*

@@ -1,6 +1,6 @@
-import it.woar.stickcalendar.StickCalendar
-import it.woar.stickcalendar.StickCalendar.isValid
-import it.woar.stickcalendar.StickDate
+import dk.spilpind.stickcalendar.StickCalendar
+import dk.spilpind.stickcalendar.StickCalendar.isValid
+import dk.spilpind.stickcalendar.StickDate
 import kotlinx.css.Color
 import kotlinx.css.Display
 import kotlinx.css.color

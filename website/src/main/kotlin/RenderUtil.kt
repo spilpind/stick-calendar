@@ -1,8 +1,8 @@
-import it.woar.stickcalendar.FunFacts
-import it.woar.stickcalendar.StickCalendar.isValid
-import it.woar.stickcalendar.StickCalendar.toLocalDate
-import it.woar.stickcalendar.StickCalendar.toStickDate
-import it.woar.stickcalendar.StickDate
+import dk.spilpind.stickcalendar.FunFacts
+import dk.spilpind.stickcalendar.StickCalendar.isValid
+import dk.spilpind.stickcalendar.StickCalendar.toLocalDate
+import dk.spilpind.stickcalendar.StickCalendar.toStickDate
+import dk.spilpind.stickcalendar.StickDate
 import kotlinx.css.Display
 import kotlinx.datetime.*
 import org.w3c.dom.HTMLElement

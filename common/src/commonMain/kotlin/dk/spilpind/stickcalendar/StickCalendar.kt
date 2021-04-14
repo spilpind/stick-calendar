@@ -1,6 +1,9 @@
-package it.woar.stickcalendar
+package dk.spilpind.stickcalendar
 
-import kotlinx.datetime.*
+import kotlinx.datetime.DatePeriod
+import kotlinx.datetime.LocalDate
+import kotlinx.datetime.daysUntil
+import kotlinx.datetime.plus
 
 /**
  * Utility class that helps dealing with the Stick calendar and dates of it. Uses [HolidayFinder], so same limits as
