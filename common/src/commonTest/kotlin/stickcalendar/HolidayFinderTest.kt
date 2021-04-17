@@ -98,6 +98,10 @@ class HolidayFinderTest {
      * remaining dates that we don't have statically
      */
     private fun calculateDateWithAssa(year: Int): LocalDate {
+        if (year > 4099) {
+            throw IllegalArgumentException("Years later than 4099 not supported by the ASSA calculation")
+        }
+
         val firstDigits = year / 100
         val lastDigits = year % 100
         val remainder19 = year % 19
