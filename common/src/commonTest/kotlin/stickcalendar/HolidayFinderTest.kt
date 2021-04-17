@@ -64,6 +64,9 @@ class HolidayFinderTest {
         assertFails {
             HolidayFinder.findEaster(EXPECTED_EARLIEST_SUPPORTED_YEAR - 1)
         }
+
+        // We just don't expect it to fail
+        HolidayFinder.findEaster(EXPECTED_EARLIEST_SUPPORTED_YEAR)
     }
 
     @Test
