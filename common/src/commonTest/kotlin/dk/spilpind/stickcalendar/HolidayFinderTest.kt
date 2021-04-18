@@ -22,7 +22,7 @@ class HolidayFinderTest {
 
     @Test
     fun easterCheckDateStatic() {
-        // This is made with help from this site: assa.org.au/edm
+        // Sources: https://assa.org.au/edm and https://commons.wikimedia.org/wiki/File:DiagrammePaques_Flammarion.jpg
         // It's some "random" picks, especially focusing on leap years and the years before/after
         val expectedEasterDates = listOf(
             LocalDate(dayOfMonth = 10, month = Month.APRIL, year = 1583),
@@ -78,6 +78,8 @@ class HolidayFinderTest {
 
     @Test
     fun pentecostCheckDateStatic() {
+        // Source: https://assa.org.au/edm (+49 days)
+        // Confirmed by (expect 2400) (+49 days): https://commons.wikimedia.org/wiki/File:DiagrammePaques_Flammarion.jpg
         val expectedPentecostDates = listOf(
             LocalDate(dayOfMonth = 29, month = Month.MAY, year = 1583),
             LocalDate(dayOfMonth = 21, month = Month.MAY, year = 1600),
@@ -94,8 +96,7 @@ class HolidayFinderTest {
     }
 
     /**
-     * Logic from assa.org.au/edm which also generated some of the static list(s), but are here to help with the
-     * remaining dates that we don't have statically
+     * Logic from https://assa.org.au/edm that are here to help with the remaining dates that we don't have statically
      */
     private fun calculateDateWithAssa(year: Int): LocalDate {
         if (year > 4099) {
