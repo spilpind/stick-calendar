@@ -53,7 +53,7 @@ class HolidayFinderTest {
     }
 
     @Test
-    fun easterCheckDynamic() {
+    fun easterCheckDateDynamic() {
         (EXPECTED_EARLIEST_SUPPORTED_YEAR..4099).forEach { year ->
             assertEquals(expected = calculateDateWithAssa(year), HolidayFinder.findEaster(year))
         }
