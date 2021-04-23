@@ -8,7 +8,7 @@ import kotlinx.datetime.todayAt
 
 object FunFacts {
 
-    data class Occurrences(val countSince: Int, val countGregorianMatchSince: Int)
+    data class Occurrences(val stickDateMatchesSince: Int, val gregorianMatchesSince: Int)
 
     fun occurrencesSince(date: StickDate): Occurrences? {
         val today = Clock.System.todayAt(TimeZone.currentSystemDefault())
@@ -46,8 +46,8 @@ object FunFacts {
         }
 
         return Occurrences(
-            countSince = countSince,
-            countGregorianMatchSince = countGregorianMatchSince
+            stickDateMatchesSince = countSince,
+            gregorianMatchesSince = countGregorianMatchSince
         )
     }
 

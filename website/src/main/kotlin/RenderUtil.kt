@@ -99,12 +99,12 @@ object RenderUtil {
             Display.none
         } else {
             stickCalendarComponentsByClassName("$elementPrefix-fun-fact-count-match-since-years") {
-                +"${occurrences.countSince} år"
+                +"${occurrences.stickDateMatchesSince} år"
             }
 
             stickCalendarComponentsByClassName("$elementPrefix-fun-fact-count-match-since-times") {
-                +"${occurrences.countSince} ${
-                    if (occurrences.countSince == 1) {
+                +"${occurrences.stickDateMatchesSince} ${
+                    if (occurrences.stickDateMatchesSince == 1) {
                         "gang"
                     } else {
                         "gange"
@@ -113,8 +113,8 @@ object RenderUtil {
             }
 
             stickCalendarComponentsByClassName("$elementPrefix-fun-fact-count-greg-match-since") {
-                +"${occurrences.countGregorianMatchSince} ${
-                    if (occurrences.countGregorianMatchSince == 1) {
+                +"${occurrences.gregorianMatchesSince} ${
+                    if (occurrences.gregorianMatchesSince == 1) {
                         "gang"
                     } else {
                         "gange"
