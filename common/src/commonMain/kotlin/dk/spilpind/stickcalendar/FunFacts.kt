@@ -23,7 +23,7 @@ object FunFacts {
 
         var countSince = 0
         var countGregorianMatchSince = 0
-        while (currentDate.toLocalDate() <= today) {
+        while (true) {
             currentDate = StickDate(
                 day = currentDate.day,
                 year = currentDate.year + 1
