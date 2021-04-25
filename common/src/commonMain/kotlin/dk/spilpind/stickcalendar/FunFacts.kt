@@ -29,11 +29,11 @@ object FunFacts {
     fun occurrencesSince(date: StickDate): Occurrences? {
         val today = Clock.System.todayAt(TimeZone.currentSystemDefault())
 
-        if (date.toLocalDate() >= today) {
+        val originLocalDate = date.toLocalDate()
+
+        if (originLocalDate >= today) {
             return null
         }
-
-        val originLocalDate = date.toLocalDate()
 
         var currentDate = date
 
