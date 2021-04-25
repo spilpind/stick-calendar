@@ -37,6 +37,10 @@ object StickCalendar {
         )
     }
 
+    /**
+     * Returns true if the [StickDate] is a valid combination of [StickDate.day] and [StickDate.year] (a date that has
+     * happened or will happen)
+     */
     val StickDate.isValid: Boolean
         get() = try {
             toLocalDate()
@@ -45,19 +49,29 @@ object StickCalendar {
             false
         }
 
+    /**
+     * Converts the [StickDate] to its counterpart in the Gregorian calendar (represented by [LocalDate]). Note that
+     * this will throw an exception if the date is invalid
+     */
     fun StickDate.toLocalDate(): LocalDate {
         val yearLength = lengthOfYear(year)
         if (day > yearLength) {
-            throw IllegalArgumentException("Could not convert $this to LocalDate as year $year only has $yearLength days")
+            throw IllegalArgumentException(
+                "Could not convert $this to LocalDate as year $year only has $yearLength days"
+            )
         }
 
         val pentecost = HolidayFinder.findPentecost(ORIGIN_YEAR + year)
+
         return pentecost + DatePeriod(days = day - 1)
     }
 
-    fun lengthOfYear(year: Int): Int {
-        val thisYearPentecost = HolidayFinder.findPentecost(ORIGIN_YEAR + year)
-        val nextYearPentecost = HolidayFinder.findPentecost(ORIGIN_YEAR + year + 1)
+    /**
+     * Returns number of days for the specified [stickYear]
+     */
+    fun lengthOfYear(stickYear: Int): Int {
+        val thisYearPentecost = HolidayFinder.findPentecost(ORIGIN_YEAR + stickYear)
+        val nextYearPentecost = HolidayFinder.findPentecost(ORIGIN_YEAR + stickYear + 1)
 
         return thisYearPentecost.daysUntil(nextYearPentecost)
     }
