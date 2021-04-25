@@ -34,7 +34,7 @@ object HolidayFinder {
      */
     fun findEaster(year: Int): LocalDate {
         if (year < 1583) {
-            throw IllegalArgumentException("Years prior to 1583 not supported")
+            throw IllegalArgumentException("Years prior to 1583 not supported. Input year: $year")
         }
 
         val a = year % 19

@@ -17,9 +17,18 @@ object StickCalendar {
      * Converts the [LocalDate] (in Gregorian calendar) to its counterpart in the stick calendar
      */
     fun LocalDate.toStickDate(): StickDate {
-        var pentecostDate = HolidayFinder.findPentecost(year)
-        if (this < pentecostDate) {
-            pentecostDate = HolidayFinder.findPentecost(year - 1)
+        val pentecostDate = try {
+            val pentecostDate = HolidayFinder.findPentecost(year)
+
+            if (this < pentecostDate) {
+                // The date is before this years pentecost date so origin is last year's instead
+                HolidayFinder.findPentecost(year - 1)
+            } else {
+                pentecostDate
+            }
+
+        } catch (exception: IllegalArgumentException) {
+            throw IllegalArgumentException("Could not convert $this to StickDate", exception)
         }
 
         return StickDate(
