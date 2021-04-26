@@ -1,18 +1,20 @@
+package react.stickcalendar
+
 import react.*
 import kotlin.js.Date
 
-external interface ReactDatePickerProps : RProps {
+external interface DatePickerProps : RProps {
     var selectedDate: Date
     var onDateSelected: (Date) -> Unit
 }
 
 @JsExport
-class ReactDatePicker() : RComponent<ReactDatePickerProps, RState>() {
+class DatePicker : RComponent<DatePickerProps, RState>() {
 
     override fun RBuilder.render() {
         kotlinext.js.require("react-datepicker/dist/react-datepicker.css")
 
-        npmReactDatePicker {
+        react.datepicker.datePicker {
             attrs {
                 selected = props.selectedDate
                 onChange = props.onDateSelected
@@ -23,7 +25,7 @@ class ReactDatePicker() : RComponent<ReactDatePickerProps, RState>() {
     }
 }
 
-fun RBuilder.datePicker(handler: ReactDatePickerProps.() -> Unit) =
-    child(ReactDatePicker::class) {
+fun RBuilder.datePicker(handler: DatePickerProps.() -> Unit) =
+    child(DatePicker::class) {
         this.attrs(handler)
     }

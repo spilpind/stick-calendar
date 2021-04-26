@@ -1,3 +1,5 @@
+package react.stickcalendar
+
 import dk.spilpind.stickcalendar.StickCalendar
 import dk.spilpind.stickcalendar.StickCalendar.isValid
 import dk.spilpind.stickcalendar.StickDate
@@ -12,22 +14,22 @@ import react.dom.input
 import styled.css
 import styled.styledP
 
-external interface ReactStickDateInputProps : RProps {
+external interface StickDateInputProps : RProps {
     var selectedDate: StickDate
     var onDateSelected: (StickDate) -> Unit
 }
 
-external interface ReactStickDateInputState : RState {
+external interface StickDateInputState : RState {
     var error: String?
     var lastPropDate: StickDate?
     var dateString: String
 }
 
 @JsExport
-class ReactStickDateInput : RComponent<ReactStickDateInputProps, ReactStickDateInputState>() {
+class StickDateInput : RComponent<StickDateInputProps, StickDateInputState>() {
 
-    companion object : RStatics<ReactStickDateInputProps, ReactStickDateInputState, ReactStickDateInput, Nothing>(
-        ReactStickDateInput::class
+    companion object : RStatics<StickDateInputProps, StickDateInputState, StickDateInput, Nothing>(
+        StickDateInput::class
     ) {
         init {
             getDerivedStateFromProps = { props, state ->
@@ -54,7 +56,7 @@ class ReactStickDateInput : RComponent<ReactStickDateInputProps, ReactStickDateI
         }
     }
 
-    override fun ReactStickDateInputState.init() {
+    override fun StickDateInputState.init() {
         dateString = ""
     }
 
@@ -95,8 +97,8 @@ class ReactStickDateInput : RComponent<ReactStickDateInputProps, ReactStickDateI
     }
 }
 
-fun RBuilder.stickDateInput(handler: ReactStickDateInputProps.() -> Unit) =
-    child(ReactStickDateInput::class) {
+fun RBuilder.stickDateInput(handler: StickDateInputProps.() -> Unit) =
+    child(StickDateInput::class) {
         this.attrs(handler)
     }
 

@@ -7,6 +7,8 @@ import kotlinx.css.Display
 import kotlinx.datetime.*
 import org.w3c.dom.HTMLElement
 import react.RBuilder
+import react.stickcalendar.stickCalendarComponentById
+import react.stickcalendar.stickCalendarComponentsByClassName
 
 object RenderUtil {
 

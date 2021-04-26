@@ -1,3 +1,5 @@
+package react.stickcalendar
+
 import kotlinx.browser.document
 import org.w3c.dom.Element
 import react.*

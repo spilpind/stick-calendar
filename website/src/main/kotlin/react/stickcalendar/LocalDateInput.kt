@@ -1,3 +1,5 @@
+package react.stickcalendar
+
 import dk.spilpind.stickcalendar.StickCalendar.toStickDate
 import kotlinx.css.Color
 import kotlinx.css.Display
@@ -11,22 +13,22 @@ import react.dom.input
 import styled.css
 import styled.styledP
 
-external interface ReactLocalDateInputProps : RProps {
+external interface LocalDateInputProps : RProps {
     var selectedDate: LocalDate
     var onDateSelected: (LocalDate) -> Unit
 }
 
-external interface ReactLocalDateInputState : RState {
+external interface LocalDateInputState : RState {
     var error: String?
     var lastPropDate: LocalDate?
     var dateString: String
 }
 
 @JsExport
-class ReactLocalDateInput : RComponent<ReactLocalDateInputProps, ReactLocalDateInputState>() {
+class LocalDateInput : RComponent<LocalDateInputProps, LocalDateInputState>() {
 
-    companion object : RStatics<ReactLocalDateInputProps, ReactLocalDateInputState, ReactLocalDateInput, Nothing>(
-        ReactLocalDateInput::class
+    companion object : RStatics<LocalDateInputProps, LocalDateInputState, LocalDateInput, Nothing>(
+        LocalDateInput::class
     ) {
         init {
             getDerivedStateFromProps = { props, state ->
@@ -55,7 +57,7 @@ class ReactLocalDateInput : RComponent<ReactLocalDateInputProps, ReactLocalDateI
         }
     }
 
-    override fun ReactLocalDateInputState.init() {
+    override fun LocalDateInputState.init() {
         dateString = ""
     }
 
@@ -96,8 +98,8 @@ class ReactLocalDateInput : RComponent<ReactLocalDateInputProps, ReactLocalDateI
     }
 }
 
-fun RBuilder.localDateInput(handler: ReactLocalDateInputProps.() -> Unit) =
-    child(ReactLocalDateInput::class) {
+fun RBuilder.localDateInput(handler: LocalDateInputProps.() -> Unit) =
+    child(LocalDateInput::class) {
         this.attrs(handler)
     }
 

@@ -1,3 +1,5 @@
+package react.stickcalendar
+
 import RenderUtil.renderFunFacts
 import RenderUtil.renderGregDateOutput
 import RenderUtil.renderStickDateOutput
@@ -9,14 +11,14 @@ import kotlinx.datetime.todayAt
 import react.*
 import kotlin.js.Date
 
-external interface ReactGregToStickAppState : RState {
+external interface GregToStickAppState : RState {
     var selectedDate: LocalDate
 }
 
 @JsExport
-class ReactGregToStickApp : RComponent<RProps, ReactGregToStickAppState>() {
+class GregToStickApp : RComponent<RProps, GregToStickAppState>() {
 
-    override fun ReactGregToStickAppState.init() {
+    override fun GregToStickAppState.init() {
         selectedDate = Clock.System.todayAt(TimeZone.currentSystemDefault())
     }
 
