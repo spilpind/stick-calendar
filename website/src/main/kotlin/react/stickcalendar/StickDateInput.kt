@@ -7,6 +7,7 @@ import kotlinx.css.Color
 import kotlinx.css.Display
 import kotlinx.css.color
 import kotlinx.css.display
+import kotlinx.datetime.LocalDate
 import kotlinx.html.js.onChangeFunction
 import org.w3c.dom.HTMLInputElement
 import react.*
@@ -14,17 +15,29 @@ import react.dom.input
 import styled.css
 import styled.styledP
 
+/**
+ * Props of [StickDateInput]. [selectedDate] is the selected date and [onDateSelected] will be called whenever a valid
+ * date has been entered
+ */
 external interface StickDateInputProps : RProps {
     var selectedDate: StickDate
     var onDateSelected: (StickDate) -> Unit
 }
 
+/**
+ * State of [StickDateInput]
+ */
 external interface StickDateInputState : RState {
     var error: String?
     var lastPropDate: StickDate?
     var dateString: String
 }
 
+/**
+ * React component that with an input field enables the user to enter a [StickDate]. In case of an invalid input
+ * (including dates that are too old for the current implementation of the stick calendar), an error message will be
+ * shown the the user. If a valid date is entered, [StickDateInputProps.onDateSelected] will be called
+ */
 @JsExport
 class StickDateInput : RComponent<StickDateInputProps, StickDateInputState>() {
 
@@ -97,6 +110,9 @@ class StickDateInput : RComponent<StickDateInputProps, StickDateInputState>() {
     }
 }
 
+/**
+ * Creates a [LocalDateInput] child element with the with the provided props
+ */
 fun RBuilder.stickDateInput(handler: StickDateInputProps.() -> Unit) =
     child(StickDateInput::class) {
         this.attrs(handler)

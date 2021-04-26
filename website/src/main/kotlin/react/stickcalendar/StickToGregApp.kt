@@ -9,10 +9,16 @@ import dk.spilpind.stickcalendar.StickDate
 import kotlinx.datetime.*
 import react.*
 
+/**
+ * State of [StickToGregApp]
+ */
 external interface StickToGregAppState : RState {
     var selectedDate: StickDate
 }
 
+/**
+ * An application that enables the user to convert stick dates to gregorian dates
+ */
 @JsExport
 class StickToGregApp : RComponent<RProps, StickToGregAppState>() {
 

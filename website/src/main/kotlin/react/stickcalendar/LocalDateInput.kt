@@ -13,17 +13,29 @@ import react.dom.input
 import styled.css
 import styled.styledP
 
+/**
+ * Props of [LocalDateInput]. [selectedDate] is the selected date and [onDateSelected] will be called whenever a valid
+ * date has been entered
+ */
 external interface LocalDateInputProps : RProps {
     var selectedDate: LocalDate
     var onDateSelected: (LocalDate) -> Unit
 }
 
+/**
+ * State of [LocalDateInput]
+ */
 external interface LocalDateInputState : RState {
     var error: String?
     var lastPropDate: LocalDate?
     var dateString: String
 }
 
+/**
+ * React component that with an input field enables the user to enter a gregorian [LocalDate]. In case of an invalid
+ * input (including dates that cannot be converted to the stick calendar), an error message will be shown the the user.
+ * If a valid date is entered, [LocalDateInputProps.onDateSelected] will be called
+ */
 @JsExport
 class LocalDateInput : RComponent<LocalDateInputProps, LocalDateInputState>() {
 
@@ -98,6 +110,9 @@ class LocalDateInput : RComponent<LocalDateInputProps, LocalDateInputState>() {
     }
 }
 
+/**
+ * Creates a [LocalDateInput] child element with the with the provided props
+ */
 fun RBuilder.localDateInput(handler: LocalDateInputProps.() -> Unit) =
     child(LocalDateInput::class) {
         this.attrs(handler)

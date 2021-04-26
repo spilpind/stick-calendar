@@ -11,10 +11,16 @@ import kotlinx.datetime.todayAt
 import react.*
 import kotlin.js.Date
 
+/**
+ * State of [GregToStickApp]
+ */
 external interface GregToStickAppState : RState {
     var selectedDate: LocalDate
 }
 
+/**
+ * An application that enables the user to convert gregorian dates to stick dates
+ */
 @JsExport
 class GregToStickApp : RComponent<RProps, GregToStickAppState>() {
 
