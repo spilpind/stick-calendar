@@ -54,13 +54,16 @@ class LocalDateInput : RComponent<LocalDateInputProps, LocalDateInputState>() {
                     }
 
                     // Checking this ensures we won't change the input text if the input is valid but not as we would
-                    // insert. Can happen if the user types: 01-01-2021 => 01-0-2021 => 01-02-2021
+                    // format it. Can happen if the user types 01-01-2021 => 01-0-2021 => 01-02-2021. In that case we
+                    // would have formatted it as 1-2-2021, but that would seem strange to the user as it wasn't how
+                    // they entered it
                     if (currentDate != props.selectedDate) {
                         state.dateString = props.selectedDate.let { date ->
                             "${date.dayOfMonth}-${date.monthNumber}-${date.year}"
                         }
                     }
 
+                    // A new date has been set (or was like the valid one) so there's no more errors
                     state.error = null
                 }
 

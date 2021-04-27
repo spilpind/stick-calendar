@@ -7,7 +7,6 @@ import kotlinx.css.Color
 import kotlinx.css.Display
 import kotlinx.css.color
 import kotlinx.css.display
-import kotlinx.datetime.LocalDate
 import kotlinx.html.js.onChangeFunction
 import org.w3c.dom.HTMLInputElement
 import react.*
@@ -56,11 +55,13 @@ class StickDateInput : RComponent<StickDateInputProps, StickDateInputState>() {
                     }
 
                     // Checking this ensures we won't change the input text if the input is valid but not as we would
-                    // insert. Can happen if the user types: 01-01-2021 => 01-0-2021 => 01-02-2021
+                    // format it. Can happen if the user types 50\.001 => 50\.00 => 50\.002. In that case we would have
+                    // formatted it as 50\.2, but that would seem strange to the user as it wasn't how they entered it
                     if (currentDate != props.selectedDate) {
                         state.dateString = props.selectedDate.toSimplifiedString()
                     }
 
+                    // A new date has been set (or was like the valid one) so there's no more errors
                     state.error = null
                 }
 
@@ -111,7 +112,7 @@ class StickDateInput : RComponent<StickDateInputProps, StickDateInputState>() {
 }
 
 /**
- * Creates a [LocalDateInput] child element with the with the provided props
+ * Creates a [StickDateInput] child element with the with the provided props
  */
 fun RBuilder.stickDateInput(handler: StickDateInputProps.() -> Unit) =
     child(StickDateInput::class) {
