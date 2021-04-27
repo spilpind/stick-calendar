@@ -52,12 +52,12 @@ class GregToStickApp : RComponent<RProps, GregToStickAppState>() {
             }
         }
 
-        val localDate = state.selectedDate.toStickDate()
+        val stickDate = state.selectedDate.toStickDate()
 
-        renderStickDateOutput(elementPrefix, localDate)
+        renderStickDateOutput(elementPrefix, stickDate)
 
         renderGregDateOutput(elementPrefix, state.selectedDate)
 
-        renderFunFacts(elementPrefix, localDate)
+        renderFunFacts(elementPrefix, stickDate)
     }
 }
