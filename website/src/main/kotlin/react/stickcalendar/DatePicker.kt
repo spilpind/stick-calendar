@@ -1,5 +1,6 @@
 package react.stickcalendar
 
+import kotlinx.datetime.LocalDate
 import react.*
 import kotlin.js.Date
 
@@ -7,12 +8,13 @@ import kotlin.js.Date
  * Props of [DatePicker]
  */
 external interface DatePickerProps : RProps {
-    var selectedDate: Date
-    var onDateSelected: (Date) -> Unit
+    var selectedDate: LocalDate
+    var onDateSelected: (LocalDate) -> Unit
 }
 
 /**
- * React component that uses an inline version of [react.datepicker.datePicker] to show a date picker
+ * React component that uses an inline version of [react.datepicker.datePicker] to show a date picker. Note that this
+ * deals with [LocalDate] instead of [Date] (that is used by the React date picker)
  */
 @JsExport
 class DatePicker : RComponent<DatePickerProps, RState>() {
@@ -22,8 +24,20 @@ class DatePicker : RComponent<DatePickerProps, RState>() {
 
         react.datepicker.datePicker {
             attrs {
-                selected = props.selectedDate
-                onChange = props.onDateSelected
+                selected = Date(
+                    props.selectedDate.year,
+                    props.selectedDate.monthNumber - 1,
+                    props.selectedDate.dayOfMonth
+                )
+                onChange = { date ->
+                    props.onDateSelected(
+                        LocalDate(
+                            dayOfMonth = date.getDate(),
+                            monthNumber = date.getMonth() + 1,
+                            year = date.getFullYear()
+                        )
+                    )
+                }
                 inline = true
             }
 

@@ -9,7 +9,6 @@ import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayAt
 import react.*
-import kotlin.js.Date
 
 /**
  * State of [GregToStickApp]
@@ -44,18 +43,10 @@ class GregToStickApp : RComponent<RProps, GregToStickAppState>() {
 
         stickCalendarComponentById("$elementPrefix-calendar") {
             datePicker {
-                selectedDate = Date(
-                    state.selectedDate.year,
-                    state.selectedDate.monthNumber - 1,
-                    state.selectedDate.dayOfMonth
-                )
+                selectedDate = state.selectedDate
                 onDateSelected = { date ->
                     setState {
-                        selectedDate = LocalDate(
-                            dayOfMonth = date.getDate(),
-                            monthNumber = date.getMonth() + 1,
-                            year = date.getFullYear()
-                        )
+                        selectedDate = date
                     }
                 }
             }
