@@ -4,6 +4,7 @@ import kotlinx.browser.document
 import kotlinx.datetime.Clock
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.todayAt
+import react.RBuilder
 import react.dom.render
 import react.stickcalendar.GregToStickApp
 import react.stickcalendar.StickToGregApp
@@ -14,21 +15,25 @@ fun main() {
         child(GregToStickApp::class) { }
         child(StickToGregApp::class) { }
 
-        stickCalendarComponentsByClassName("stick-calendar-today") {
-            val today = Clock.System.todayAt(TimeZone.currentSystemDefault()).toStickDate()
-            +today.toExtendedFullString()
-        }
+        renderTodayInfo()
+    }
+}
 
-        stickCalendarComponentsByClassName("stick-calendar-days-left-of-year") {
-            val today = Clock.System.todayAt(TimeZone.currentSystemDefault()).toStickDate()
-            val daysLeft = lengthOfYear(today.year) - today.day
-            +"$daysLeft ${
-                if (daysLeft == 1) {
-                    "dag"
-                } else {
-                    "dage"
-                }
-            }"
-        }
+private fun RBuilder.renderTodayInfo() {
+    val today = Clock.System.todayAt(TimeZone.currentSystemDefault()).toStickDate()
+
+    stickCalendarComponentsByClassName("stick-calendar-today") {
+        +today.toExtendedFullString()
+    }
+
+    stickCalendarComponentsByClassName("stick-calendar-days-left-of-year") {
+        val daysLeft = lengthOfYear(today.year) - today.day
+        +"$daysLeft ${
+            if (daysLeft == 1) {
+                "dag"
+            } else {
+                "dage"
+            }
+        }"
     }
 }
