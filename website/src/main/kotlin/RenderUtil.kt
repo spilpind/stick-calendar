@@ -10,8 +10,15 @@ import react.RBuilder
 import react.stickcalendar.stickCalendarComponentById
 import react.stickcalendar.stickCalendarComponentsByClassName
 
+/**
+ * Various util methods that helps rendering elements. They are for instance useful when dealing with the results of
+ * date calculations
+ */
 object RenderUtil {
 
+    /**
+     * Renders [date] as extended and day-only formats to elements starting with prefix [elementPrefix]
+     */
     fun RBuilder.renderGregDateOutput(elementPrefix: String, date: LocalDate) {
         val dayMonth = "${date.dayOfMonth}. ${
             when (date.month) {
@@ -39,6 +46,9 @@ object RenderUtil {
         }
     }
 
+    /**
+     * Renders [date] as extended, simplified and day-only formats to elements starting with prefix [elementPrefix]
+     */
     fun RBuilder.renderStickDateOutput(elementPrefix: String, date: StickDate) {
         stickCalendarComponentsByClassName("$elementPrefix-output-stick-extended") {
             +date.toExtendedFullString()
@@ -53,6 +63,10 @@ object RenderUtil {
         }
     }
 
+    /**
+     * Renders fun facts about [date] to elements starting with prefix [elementPrefix]. Some of the elements are
+     * containers that are visible or not based on state of [date]
+     */
     fun RBuilder.renderFunFacts(elementPrefix: String, date: StickDate) {
         val todayLocalDate = Clock.System.todayAt(TimeZone.currentSystemDefault())
         val todayStickDate = todayLocalDate.toStickDate()
