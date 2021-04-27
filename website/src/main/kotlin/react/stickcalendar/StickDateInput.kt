@@ -128,7 +128,7 @@ private fun String.toDate(): StickDate {
         datePart.trim()
     }
 
-    if (dateParts.size < 2 || dateParts.any { it.isEmpty() }) {
+    if (dateParts.size != 2 || dateParts.any { it.isEmpty() }) {
         throw IllegalArgumentException("Forventet format: ÅÅÅÅ\\.DD eller ÅÅÅÅ./DD")
     }
 

@@ -123,7 +123,7 @@ private fun String.toDate(): LocalDate {
         datePart.trim()
     }
 
-    if (dateParts.size < 3 || dateParts.any { it.isEmpty() }) {
+    if (dateParts.size != 3 || dateParts.any { it.isEmpty() }) {
         throw IllegalArgumentException("Forventet format: DD-MM-ÅÅÅÅ")
     }
 
