@@ -146,11 +146,13 @@ private fun String.toDate(): StickDate {
         year = -year
     }
 
+    if (year < -387) {
+        throw IllegalArgumentException("År ældre end 387 før pindens tid er ikke supporteret")
+    }
+
     val yearLength = StickCalendar.lengthOfYear(year)
     if (day > yearLength) {
         throw IllegalArgumentException("Dagen må være maks $yearLength for det specifikke år")
-    } else if (year < -387) {
-        throw IllegalArgumentException("Året må ikke være ældre end 386 før pindens tid")
     }
 
     return StickDate(
