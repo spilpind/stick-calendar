@@ -84,13 +84,28 @@ object TextUtil {
         return regex.replace(this) { matchResult ->
             val prefix = matchResult.groupValues.getOrNull(1)
 
-            val datesParts = matchResult.groupValues.subList(2, matchResult.groupValues.size).map { datePart ->
-                datePart.toIntOrNull() ?: return@replace matchResult.value
-            }
+            val datesParts = matchResult.groupValues.subList(2, matchResult.groupValues.size)
+                .mapIndexedNotNull { index, datePart ->
+                    if (index > 2) {
+                        return@replace matchResult.value
+                    }
+
+                    val datePartNumber = datePart.toIntOrNull()
+                    if (datePartNumber != null) {
+                        return@mapIndexedNotNull datePartNumber
+                    }
+
+                    if (index == 2) {
+                        // Non-existing date part is allowed as it's then just a simple date
+                        null
+                    } else {
+                        return@replace matchResult.value
+                    }
+                }
 
             val monthNumber = datesParts[1]
             val (dayOfMonth, year) = when {
-                datesParts.size < 2 -> Pair(datesParts[1], today.year)
+                datesParts.size < 3 -> Pair(datesParts[0], today.year)
                 datesParts.size > 3 -> return@replace matchResult.value
                 datesParts[0] > 31 -> Pair(datesParts[2], datesParts[0])
                 else -> Pair(datesParts[0], datesParts[2])
