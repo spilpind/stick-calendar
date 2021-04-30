@@ -75,7 +75,7 @@ object TextUtil {
      * The stick date will always contain the year, even if the corresponding gregorian date doesn't. A lot of various
      * date formats are supported with a mix of dividers like "/", "." and "-"
      */
-    fun String.replaceSimpleDates(): String {
+    fun String.replaceSimpleDates(today: LocalDate = Clock.System.todayAt(TimeZone.currentSystemDefault())): String {
         val regex = Regex(
             "(?:(d\\.|den) )?([0-9]+)[.\\-/]([0-9]+)(?:[.\\-/ ]([0-9]+))?",
             RegexOption.IGNORE_CASE
@@ -90,7 +90,7 @@ object TextUtil {
 
             val monthNumber = datesParts[1]
             val (dayOfMonth, year) = when {
-                datesParts.size < 2 -> Pair(datesParts[1], Clock.System.todayAt(TimeZone.currentSystemDefault()).year)
+                datesParts.size < 2 -> Pair(datesParts[1], today.year)
                 datesParts.size > 3 -> return@replace matchResult.value
                 datesParts[0] > 31 -> Pair(datesParts[2], datesParts[0])
                 else -> Pair(datesParts[0], datesParts[2])
