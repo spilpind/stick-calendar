@@ -13,7 +13,7 @@ object TextUtil {
      * stick date. If the gregorian date only consist of day and month (without year) we assume it's the current year
      * and only add the stick year to the output if it isn't the same as the current stick year
      */
-    fun String.replaceExtendedDates(): String {
+    fun String.replaceExtendedDates(today: LocalDate = Clock.System.todayAt(TimeZone.currentSystemDefault())): String {
         val regex = Regex(
             "([0-9]+)\\. (januar|jan\\.?|februar|feb\\.?|marts|mar\\.?|april|apr\\.?|maj|juni|jun\\.?|juli|jul\\.?|august|aug\\.?|september|sept\\.?|sep\\.?|oktober|okt\\.?|november|nov\\.?|december|dec\\.?)(?: ([0-9]+))?",
             RegexOption.IGNORE_CASE
@@ -51,8 +51,6 @@ object TextUtil {
             }
 
             try {
-                val today = Clock.System.todayAt(TimeZone.currentSystemDefault())
-
                 val stickDate = LocalDate(
                     year = year ?: today.year,
                     month = month,
