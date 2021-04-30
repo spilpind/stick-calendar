@@ -82,6 +82,25 @@ class TextUtilTest {
     }
 
     @Test
+    fun replaceExtendedDatesNonDates() {
+        // Day too large
+        assertEquals(
+            expected = "33. marts 2021",
+            actual = "33. marts 2021".replaceSimpleDates(TODAY)
+        )
+        // Unknown month
+        assertEquals(
+            expected = "21. bent 2012",
+            actual = "21. bent 2012".replaceSimpleDates(TODAY)
+        )
+        // Invalid date
+        assertEquals(
+            expected = "29. februar 2009",
+            actual = "29. februar 2009".replaceSimpleDates(TODAY)
+        )
+    }
+
+    @Test
     fun replaceSimpleDatesFullDatesHumanReadable() {
         val dividers = listOf(
             Pair("-", "-"),
@@ -204,6 +223,47 @@ class TextUtilTest {
     }
 
     @Test
+    fun replaceSimpleDatesFullDatesNonDates() {
+        val invalidDividerCombinations = listOf(
+            Pair(" ", "-"),
+            Pair(" ", "/"),
+            Pair(" ", "."),
+            Pair(" ", " "),
+        )
+
+        invalidDividerCombinations.forEach { (firstDivider, secondDivider) ->
+            // Human readable
+            assertEquals(
+                expected = "10${firstDivider}2${secondDivider}2012",
+                actual = "10${firstDivider}2${secondDivider}2012".replaceSimpleDates(TODAY)
+            )
+
+            // Sortfriendly ordering
+            assertEquals(
+                expected = "1970${firstDivider}12${secondDivider}24",
+                actual = "1970${firstDivider}12${secondDivider}24".replaceSimpleDates(TODAY)
+            )
+        }
+
+        // Day/year too large
+        assertEquals(
+            expected = "32-7-32",
+            actual = "32-7-32".replaceSimpleDates(TODAY)
+        )
+        // Month too large
+        assertEquals(
+            expected = "5-13-2012",
+            actual = "5-13-2012".replaceSimpleDates(TODAY)
+        )
+
+        // Invalid date
+        assertEquals(
+            expected = "29-2-2018",
+            actual = "29-2-2018".replaceSimpleDates(TODAY)
+        )
+    }
+
+    @Test
     fun replaceSimpleDatesShortDates() {
         val dividers = listOf("-", ".", "/")
 
@@ -230,4 +290,35 @@ class TextUtilTest {
             )
         }
     }
+
+    @Test
+    fun replaceSimpleDatesShortDatesNonDates() {
+        val dividers = listOf("-", ".", "/")
+        val todayWithLeapYear = LocalDate(year = 2021, month = Month.JANUARY, dayOfMonth = 1)
+
+        dividers.forEach { divider ->
+            // Day too large
+            assertEquals(
+                expected = "32${divider}7",
+                actual = "32${divider}7".replaceSimpleDates(TODAY)
+            )
+            // Month too large
+            assertEquals(
+                expected = "6${divider}13",
+                actual = "6${divider}13".replaceSimpleDates(TODAY)
+            )
+            // Invalid date
+            assertEquals(
+                expected = "29${divider}2",
+                actual = "29${divider}2".replaceSimpleDates(today = todayWithLeapYear)
+            )
+        }
+
+        // Using unexpected divider
+        assertEquals(
+            expected = "24 12",
+            actual = "24 12".replaceSimpleDates(TODAY)
+        )
+    }
+
 }
