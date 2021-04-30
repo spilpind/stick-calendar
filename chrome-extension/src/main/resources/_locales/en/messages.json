@@ -1,0 +1,10 @@
+{
+  "application_name": {
+    "message": "Stick Calendar",
+    "description": "The title of the application, displayed in the web store."
+  },
+  "application_description": {
+    "message": "Replaces gregorian calendar dates (29/3-2021) in all websites to dates of the stick calendar. Mostly just makes sense in Danish.",
+    "description": "The description of the application, displayed in the web store."
+  }
+}
