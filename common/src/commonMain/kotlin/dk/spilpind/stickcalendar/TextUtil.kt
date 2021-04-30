@@ -77,14 +77,12 @@ object TextUtil {
      */
     fun String.replaceSimpleDates(today: LocalDate = Clock.System.todayAt(TimeZone.currentSystemDefault())): String {
         val regex = Regex(
-            "(?:(d\\.|den) )?([0-9]+)[.\\-/]([0-9]+)(?:[.\\-/ ]([0-9]+))?",
+            "([0-9]+)[.\\-/]([0-9]+)(?:[.\\-/ ]([0-9]+))?",
             RegexOption.IGNORE_CASE
         )
 
         return regex.replace(this) { matchResult ->
-            val prefix = matchResult.groupValues.getOrNull(1)
-
-            val datesParts = matchResult.groupValues.subList(2, matchResult.groupValues.size)
+            val datesParts = matchResult.groupValues.subList(1, matchResult.groupValues.size)
                 .mapIndexedNotNull { index, datePart ->
                     if (index > 2) {
                         return@replace matchResult.value
@@ -124,13 +122,7 @@ object TextUtil {
                     dayOfMonth = dayOfMonth
                 )
 
-                "${
-                    if (prefix != null) {
-                        "$prefix "
-                    } else {
-                        ""
-                    }
-                }${localDate.toStickDate().toSimplifiedString()}"
+                localDate.toStickDate().toSimplifiedString()
             } catch (exception: IllegalArgumentException) {
                 matchResult.value
             }
