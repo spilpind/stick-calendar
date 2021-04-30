@@ -140,7 +140,7 @@ class DomDateReplacer(private val document: Document) {
 
     private fun String.replaceSimpleDates(): String {
         val regex = Regex(
-            "(?:(d\\.|den) )?([0-9]{4}|[0-9]+)[.\\-/]([0-9]+)(?:[.\\-/ ]([0-9]+))?",
+            "(?:(d\\.|den) )?([0-9]+)[.\\-/]([0-9]+)(?:[.\\-/ ]([0-9]+))?",
             RegexOption.IGNORE_CASE
         )
 
