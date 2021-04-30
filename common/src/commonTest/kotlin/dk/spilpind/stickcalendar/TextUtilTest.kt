@@ -1,6 +1,7 @@
 package dk.spilpind.stickcalendar
 
 import dk.spilpind.stickcalendar.TextUtil.replaceExtendedDates
+import dk.spilpind.stickcalendar.TextUtil.replaceSimpleDates
 import kotlinx.datetime.LocalDate
 import kotlinx.datetime.Month
 import kotlin.test.Test
@@ -78,5 +79,155 @@ class TextUtilTest {
         assertEquals(expected = "142. pindsedag år 42. 2021", "15. oktober. 2021".replaceExtendedDates(TODAY))
         assertEquals(expected = "174. pindsedag år 42. 2021", "16. november. 2021".replaceExtendedDates(TODAY))
         assertEquals(expected = "205. pindsedag år 42. 2021", "17. december. 2021".replaceExtendedDates(TODAY))
+    }
+
+    @Test
+    fun replaceSimpleDatesFullDatesHumanReadable() {
+        val dividers = listOf(
+            Pair("-", "-"),
+            Pair("-", "/"),
+            Pair("-", "."),
+            Pair("-", " "),
+            Pair(".", "."),
+            Pair(".", "-"),
+            Pair(".", "/"),
+            Pair(".", " "),
+            Pair("/", "/"),
+            Pair("/", "-"),
+            Pair("/", "."),
+            Pair("/", " "),
+        )
+
+        dividers.forEach { (firstDivider, secondDivider) ->
+            // Single digit day, single digit month, full year
+            assertEquals(
+                expected = "49\\.207",
+                actual = "1${firstDivider}1${secondDivider}2020".replaceSimpleDates(TODAY)
+            )
+            // Double digit day, single digit month, full year
+            assertEquals(
+                expected = "51\\.111",
+                actual = "10${firstDivider}9${secondDivider}2021".replaceSimpleDates(TODAY)
+            )
+            // Single digit day, double digit month, full year
+            assertEquals(
+                expected = "52\\.126",
+                actual = "8${firstDivider}10${secondDivider}2022".replaceSimpleDates(TODAY)
+            )
+            // Double digit day, double digit month, full year
+            assertEquals(
+                expected = "53\\.168",
+                actual = "11${firstDivider}11${secondDivider}2023".replaceSimpleDates(TODAY)
+            )
+            // Single digit day, single digit month, short year
+            assertEquals(
+                expected = "39\\.276",
+                actual = "2${firstDivider}3${secondDivider}10".replaceSimpleDates(TODAY)
+            )
+            // Double digit day, single digit month, short year
+            assertEquals(
+                expected = "40\\.374",
+                actual = "31${firstDivider}5${secondDivider}11".replaceSimpleDates(TODAY)
+            )
+            // Single digit day, double digit month, short year
+            assertEquals(
+                expected = "42\\.164",
+                actual = "6${firstDivider}11${secondDivider}12".replaceSimpleDates(TODAY)
+            )
+            // Double digit day, double digit month, short year
+            assertEquals(
+                expected = "43\\.220",
+                actual = "24${firstDivider}12${secondDivider}13".replaceSimpleDates(TODAY)
+            )
+        }
+    }
+
+    @Test
+    fun replaceSimpleDatesFullDatesSortfriendlyOrdering() {
+        val dividers = listOf(
+            Pair("-", "-"),
+            Pair("-", "/"),
+            Pair("-", "."),
+            Pair("-", " "),
+            Pair(".", "."),
+            Pair(".", "-"),
+            Pair(".", "/"),
+            Pair(".", " "),
+            Pair("/", "/"),
+            Pair("/", "-"),
+            Pair("/", "."),
+            Pair("/", " "),
+        )
+
+        dividers.forEach { (firstDivider, secondDivider) ->
+            // Full year, single digit month, single digit day
+            assertEquals(
+                expected = "44\\.302",
+                actual = "2015${firstDivider}4${secondDivider}5".replaceSimpleDates(TODAY)
+            )
+            // Full year, double digit month, single digit day
+            assertEquals(
+                expected = "46\\.121",
+                actual = "2016${firstDivider}9${secondDivider}12".replaceSimpleDates(TODAY)
+            )
+            // Full year, single digit month, double digit day
+            assertEquals(
+                expected = "47\\.121",
+                actual = "2017${firstDivider}10${secondDivider}2".replaceSimpleDates(TODAY)
+            )
+            // Full year, double digit month, double digit day
+            assertEquals(
+                expected = "48\\.205",
+                actual = "2018${firstDivider}12${secondDivider}10".replaceSimpleDates(TODAY)
+            )
+            // Short year, single digit month, single digit day - this has to be with year > 31
+            assertEquals(
+                expected = "82\\.85",
+                actual = "52${firstDivider}9${secondDivider}1".replaceSimpleDates(TODAY)
+            )
+            // Short year, double digit month, single digit day - this has to be with year > 31
+            assertEquals(
+                expected = "72\\.163",
+                actual = "42${firstDivider}11${secondDivider}3".replaceSimpleDates(TODAY)
+            )
+            // Short year, single digit month, double digit day - this has to be with year > 31
+            assertEquals(
+                expected = "61\\.305",
+                actual = "32${firstDivider}3${secondDivider}31".replaceSimpleDates(TODAY)
+            )
+            // Short year, double digit month, double digit day - this has to be with year > 31
+            assertEquals(
+                expected = "129\\.196",
+                actual = "99${firstDivider}12${secondDivider}12".replaceSimpleDates(TODAY)
+            )
+        }
+    }
+
+    @Test
+    fun replaceSimpleDatesShortDates() {
+        val dividers = listOf("-", ".", "/")
+
+        dividers.forEach { divider ->
+            // Single digit day, single digit month
+            assertEquals(
+                expected = "42\\.105",
+                actual = "8${divider}9".replaceSimpleDates(TODAY)
+            )
+            // Single digit day, double digit month
+            assertEquals(
+                expected = "42\\.136",
+                actual = "9${divider}10".replaceSimpleDates(TODAY)
+            )
+            // Double digit day, single digit month
+            assertEquals(
+                expected = "41\\.213",
+                actual = "10${divider}1".replaceSimpleDates(TODAY)
+            )
+            // Double digit day, double digit month
+            assertEquals(
+                expected = "42\\.199",
+                actual = "11${divider}12".replaceSimpleDates(TODAY)
+            )
+        }
     }
 }
