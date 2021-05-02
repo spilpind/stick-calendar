@@ -68,7 +68,7 @@ class TextUtilTest {
         // This at the same time tests the functionality that handles dates without a year
 
         assertEquals(expected = "209. pindsedag. 2021", "6. januar. 2021".replaceExtendedDates(TODAY))
-        assertEquals(expected = "241. pindsedag. 2021", "7. februar. 2021".replaceExtendedDates(TODAY))
+        assertEquals(expected = "263. pindsedag. 2021", "29. februar. 2021".replaceExtendedDates(TODAY))
         assertEquals(expected = "271. pindsedag. 2021", "8. marts. 2021".replaceExtendedDates(TODAY))
         assertEquals(expected = "303. pindsedag. 2021", "9. april. 2021".replaceExtendedDates(TODAY))
         assertEquals(expected = "334. pindsedag. 2021", "10. maj. 2021".replaceExtendedDates(TODAY))
@@ -158,6 +158,17 @@ class TextUtilTest {
                 expected = "43\\.220",
                 actual = "24${firstDivider}12${secondDivider}13".replaceSimpleDates(TODAY)
             )
+
+            // Februrary 29th, full year
+            assertEquals(
+                expected = "49\\.266",
+                actual = "29${firstDivider}2${secondDivider}20".replaceSimpleDates(TODAY)
+            )
+            // Februrary 29th, short year
+            assertEquals(
+                expected = "45\\.282",
+                actual = "29${firstDivider}2${secondDivider}16".replaceSimpleDates(TODAY)
+            )
         }
     }
 
@@ -218,6 +229,17 @@ class TextUtilTest {
             assertEquals(
                 expected = "129\\.196",
                 actual = "99${firstDivider}12${secondDivider}12".replaceSimpleDates(TODAY)
+            )
+
+            // Februrary 29th, full year
+            assertEquals(
+                expected = "37\\.279",
+                actual = "2008${firstDivider}2${secondDivider}29".replaceSimpleDates(TODAY)
+            )
+            // Februrary 29th, short year
+            assertEquals(
+                expected = "61\\.274",
+                actual = "32${firstDivider}2${secondDivider}29".replaceSimpleDates(TODAY)
             )
         }
     }
@@ -287,6 +309,11 @@ class TextUtilTest {
             assertEquals(
                 expected = "42\\.199",
                 actual = "11${divider}12".replaceSimpleDates(TODAY)
+            )
+            // February 29th
+            assertEquals(
+                expected = "41\\.263",
+                actual = "29${divider}2".replaceSimpleDates(TODAY)
             )
         }
     }
