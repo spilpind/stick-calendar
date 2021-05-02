@@ -89,6 +89,7 @@ object TextUtil {
                 }
 
                 if (index > 3) {
+                    // We don't expect dates to have more than three parts
                     return@replace matchResult.value
                 }
 
@@ -108,7 +109,6 @@ object TextUtil {
             val monthNumber = datesParts[1]
             val (dayOfMonth, year) = when {
                 datesParts.size < 3 -> Pair(datesParts[0], today.year)
-                datesParts.size > 3 -> return@replace matchResult.value
                 datesParts[0] > 31 -> Pair(datesParts[2], datesParts[0])
                 else -> Pair(datesParts[0], datesParts[2])
             }.let { (dayOfMonth, year) ->
