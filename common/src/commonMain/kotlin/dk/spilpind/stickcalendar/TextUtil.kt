@@ -82,24 +82,28 @@ object TextUtil {
         )
 
         return regex.replace(this) { matchResult ->
-            val datesParts = matchResult.groupValues.subList(1, matchResult.groupValues.size)
-                .mapIndexedNotNull { index, datePart ->
-                    if (index > 2) {
-                        return@replace matchResult.value
-                    }
-
-                    val datePartNumber = datePart.toIntOrNull()
-                    if (datePartNumber != null) {
-                        return@mapIndexedNotNull datePartNumber
-                    }
-
-                    if (index == 2) {
-                        // Non-existing date part is allowed as it's then just a simple date
-                        null
-                    } else {
-                        return@replace matchResult.value
-                    }
+            val datesParts = matchResult.groupValues.mapIndexedNotNull { index, datePart ->
+                if (index == 0) {
+                    // We don't want to include the all-groups part
+                    return@mapIndexedNotNull null
                 }
+
+                if (index > 3) {
+                    return@replace matchResult.value
+                }
+
+                val datePartNumber = datePart.toIntOrNull()
+                if (datePartNumber != null) {
+                    return@mapIndexedNotNull datePartNumber
+                }
+
+                if (index == 3) {
+                    // Non-existing date part is allowed as it's then just a simple date
+                    null
+                } else {
+                    return@replace matchResult.value
+                }
+            }
 
             val monthNumber = datesParts[1]
             val (dayOfMonth, year) = when {
