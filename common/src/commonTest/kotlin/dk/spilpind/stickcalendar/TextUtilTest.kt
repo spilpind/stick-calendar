@@ -184,12 +184,12 @@ class TextUtilTest {
                 expected = "44\\.302",
                 actual = "2015${firstDivider}4${secondDivider}5".replaceSimpleDates(TODAY)
             )
-            // Full year, double digit month, single digit day
+            // Full year, single digit month, double digit day
             assertEquals(
                 expected = "46\\.121",
                 actual = "2016${firstDivider}9${secondDivider}12".replaceSimpleDates(TODAY)
             )
-            // Full year, single digit month, double digit day
+            // Full year, double digit month, single digit day
             assertEquals(
                 expected = "47\\.121",
                 actual = "2017${firstDivider}10${secondDivider}2".replaceSimpleDates(TODAY)
